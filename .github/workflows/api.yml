@@ -1,4 +1,4 @@
-name: Deploy twig to GHCR
+name: Deploy FileForest API to GHCR
 on:
   push:
     branches:
@@ -28,5 +28,5 @@ jobs:
         with:
           context: ./api/
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository }}-api:latest
           platforms: linux/amd64,linux/arm64
