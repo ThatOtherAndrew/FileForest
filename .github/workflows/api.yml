@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Correct repository capitalization
-	run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
       - name: Set up Docker Buildx
         id: buildx
