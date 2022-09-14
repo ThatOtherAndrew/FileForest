@@ -12,6 +12,9 @@ jobs:
       - name: Check out code into the proper directory
         uses: actions/checkout@v1
 
+      - name: Correct repository capitalization
+	run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -28,5 +31,5 @@ jobs:
         with:
           context: ./api/
           push: true
-          tags: ghcr.io/${{ github.repository }}-api:latest
+          tags: ghcr.io/${{ env.REPO }}-api:latest
           platforms: linux/amd64,linux/arm64
