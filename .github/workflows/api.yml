@@ -1,0 +1,38 @@
+name: Deploy FileForest API to GHCR
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code into the proper directory
+        uses: actions/checkout@v1
+
+      - name: Correct repository capitalization
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to GHCR.io
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build container
+        uses: docker/build-push-action@v2
+        with:
+          context: ./api/
+          push: true
+          tags: ghcr.io/${{ env.REPO }}-api:latest
+          platforms: linux/amd64,linux/arm64
