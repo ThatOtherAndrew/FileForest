@@ -2,7 +2,7 @@
   let branchName: string;
 
   function createBranch(): void {
-    fetch(`/api/branch/new?name=${encodeURIComponent(branchName)}`, {method: 'POST'})
+    fetch(`/api/branches/new?name=${encodeURIComponent(branchName)}`, {method: 'POST'})
       .then(response => response.json())
       .then((data: object) => {
         if (data.success) {

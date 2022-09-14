@@ -3,7 +3,7 @@ from shutil import rmtree
 
 from fastapi import APIRouter, Response, HTTPException
 
-router = APIRouter(prefix='/branch')
+router = APIRouter(prefix='/branches')
 files = Path('files')
 
 
