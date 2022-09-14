@@ -4,7 +4,7 @@
 ---
 
 ## Build and Install
-Firstly, ensure you have [Docker](https://docs.docker.com/engine/install/), and preferably [Git](https://github.com/git-guides/install-git), installed. ([Don't have Git?](#dont-have-git))
+Firstly, ensure you have [Docker](https://docs.docker.com/engine/install/) installed.
 
 Clone and enter the repository:
 ```shell
@@ -19,3 +19,9 @@ And that's it! ✨
 
 ## Usage
 Instructions coming soon™️ to a README.md near you!
+
+## Development
+To develop, clone the repository and use 
+```shell
+docker compose up --build -f ./compose-dev.yml
+```

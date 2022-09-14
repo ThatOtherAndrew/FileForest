@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: fastapi
+    build: api
+    networks:
+      - bridge
+    volumes:
+      - files:/app/files
+
+  web:
+    container_name: nginx
+    build: www
+    networks:
+      - bridge
+    ports:
+      - "80:80"
+      - "443:443"
+
+networks:
+  bridge:
+    driver: bridge
+
+volumes:
+  files:
+    name: fileforest-files
