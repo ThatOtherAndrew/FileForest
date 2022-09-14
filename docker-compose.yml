@@ -3,7 +3,8 @@ version: "3.9"
 services:
   api:
     container_name: fastapi
-    build: api
+    image: ghcr.io/thatotherandrew/fileforest
+    restart: always
     networks:
       - bridge
     volumes:
@@ -11,7 +12,8 @@ services:
 
   web:
     container_name: nginx
-    build: www
+    image: ghcr.io/thatotherandrew/fileforest
+    restart: always
     networks:
       - bridge
     ports:
