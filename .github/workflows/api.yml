@@ -2,7 +2,7 @@ name: Deploy FileForest API to GHCR
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
