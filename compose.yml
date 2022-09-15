@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: fastapi
+    image: ghcr.io/thatotherandrew/fileforest-api:latest
+    restart: always
+    networks:
+      - bridge
+    volumes:
+      - files:/app/files
+
+  web:
+    container_name: nginx
+    image: ghcr.io/thatotherandrew/fileforest-www:latest
+    restart: always
+    networks:
+      - bridge
+    ports:
+      - "80:80"
+      - "443:443"
+
+networks:
+  bridge:
+    driver: bridge
+
+volumes:
+  files:
+    name: fileforest-files
