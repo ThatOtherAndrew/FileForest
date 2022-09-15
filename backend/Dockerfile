@@ -13,10 +13,11 @@ RUN /app/venv/bin/pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY src /app/src
 
+EXPOSE 80
 CMD [ \
     "/app/venv/bin/python", "-m", "uvicorn", \
     "src.main:app", \
-    "--host", "api", \
+    "--host", "backend", \
     "--port", "80", \
     "--root-path", "/api" \
 ]

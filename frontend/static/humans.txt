@@ -1,0 +1,1 @@
+FileForest is a student project developed by Andrew Stroev, also known as ThatOtherAndrew. You can find the source code over at https://github.com/ThatOtherAndrew/FileForest :)
