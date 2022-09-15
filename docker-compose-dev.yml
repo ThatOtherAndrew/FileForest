@@ -4,14 +4,19 @@ services:
   api:
     container_name: fastapi
     build: api
+    environment:
+      UVICORN_RELOAD: true
     networks:
       - bridge
     volumes:
       - files:/app/files
+      - ./api/src:/app/src
 
   web:
     container_name: nginx
     build: www
+    environment:
+      NODE_ENV: development
     networks:
       - bridge
     ports:
