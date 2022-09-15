@@ -1,16 +1,16 @@
 <script lang="ts">
+  import { request } from "./lib/requests";
+
   let branchName: string;
 
   function createBranch(): void {
-    fetch(`/api/branches/new?name=${encodeURIComponent(branchName)}`, {method: 'POST'})
-      .then(response => response.json())
-      .then((data: object) => {
-        if (data.success) {
-          alert(`Branch ${branchName} successfully created`)
-        } else {
-          alert(`A problem occurred`)
-        }
-      })
+    request(`/api/branches/?name=${encodeURIComponent(branchName)}`, { method: 'POST' },
+      () => {
+        alert(`Branch ${branchName} successfully created`)
+      }, json => {
+        alert(`An error occurred: ${json.detail}`)
+      }
+    )
   }
 </script>
 
