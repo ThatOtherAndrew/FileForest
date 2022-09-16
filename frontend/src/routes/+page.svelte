@@ -17,7 +17,6 @@
 
 <main>
   <form on:submit|preventDefault={createBranch}>
-    <h1>HMR Test!!!!</h1>
     <label for="branch-name">Branch name: </label>
     <input bind:value={branchName} id="branch-name" type="text" placeholder="my-branch" pattern="[A-Za-z0-9_-]+"
            maxlength="64" title="Branch name can only contain alphanumeric characters, underscores and hyphens.">
@@ -44,25 +43,6 @@
     -webkit-text-size-adjust: 100%;
   }
 
-  button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-  }
-  button:hover {
-    border-color: #646cff;
-  }
-  button:focus,
-  button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
-
   input:invalid {
     color: red;
   }
@@ -71,9 +51,6 @@
     :root {
       color: #213547;
       background-color: #ffffff;
-    }
-    button {
-      background-color: #f9f9f9;
     }
   }
 </style>
