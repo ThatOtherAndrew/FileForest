@@ -8,7 +8,7 @@ services:
       - traefik.enable=true
       - traefik.http.middlewares.backend-stripprefix.stripprefix.prefixes=/api
       - traefik.http.routers.backend.entrypoints=web
-      - traefik.http.routers.backend.rule=PathPrefix(`/api`)
+      - traefik.http.routers.backend.rule=Host(`localhost`) && PathPrefix(`/api`)
       - traefik.http.routers.backend.middlewares=backend-stripprefix
     environment:
       UVICORN_RELOAD: true
@@ -20,11 +20,15 @@ services:
 
   frontend:
     container_name: frontend
-    build: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile-dev
     labels:
       - traefik.enable=true
       - traefik.http.routers.frontend.entrypoints=web
       - traefik.http.routers.frontend.rule=Host(`localhost`)
+      - traefik.http.routers.hmr.entrypoints=hmr
+      - traefik.http.routers.hmr.rule=Host(`localhost`)
     networks:
       - bridge
     volumes:
@@ -38,8 +42,10 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
+      - --entrypoints.hmr.address=:81
     ports:
       - "80:80"
+      - "81:81"
       - "8080:8080"
     networks:
       - bridge

@@ -6,12 +6,12 @@ WORKDIR /app
 ENV NODE_ENV development
 ENV PORT 80
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json svelte.config.js vite.config.ts ./
 RUN npm ci
 COPY . .
 
-EXPOSE 80
+EXPOSE 80 81
 CMD [ \
-    "npm", "run", "dev", \
-    "--host", "0.0.0.0" \
+    "npm", "run", "dev", "--", \
+    "--host", "frontend" \
 ]
