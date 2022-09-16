@@ -23,7 +23,7 @@ And you're done! 🚀
 ## Build
 > ℹ️ **Need a development environment?**
 > 
-> Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md) instead.
+> Follow the instructions in [CONTRIBUTING.md](CONTRIBUTING.md#dev-environment) instead.
 
 If you have [Git](https://git-scm.com/) installed, clone and enter the repository:
 ```shell
