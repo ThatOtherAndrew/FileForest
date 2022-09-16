@@ -1,18 +1,18 @@
 interface APIError {
-  detail: any
+  detail: unknown
 }
 
 export function request(
   input: RequestInfo,
   init: RequestInit,
-  onSuccess: (json: any) => void,
+  onSuccess: (json: unknown) => void,
   onError: (json: APIError) => void = console.error
 ) {
   fetch(input, init)
     .then((response: Response) => {
       return response.ok ? response.json() : Promise.reject(response)
     })
-    .then((json: any) => {
+    .then((json: unknown) => {
       onSuccess(json)
     })
     .catch((response: Response) => {
