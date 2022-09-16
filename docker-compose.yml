@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  backend:
+    container_name: backend
+    build: backend
+    labels:
+      - traefik.enable=true
+      - traefik.http.middlewares.backend-stripprefix.stripprefix.prefixes=/api
+      - traefik.http.routers.backend.entrypoints=web
+      - traefik.http.routers.backend.rule=PathPrefix(`/api`)
+      - traefik.http.routers.backend.middlewares=backend-stripprefix
+    networks:
+      - bridge
+    volumes:
+      - files:/app/files
+    restart: unless-stopped
+
+  frontend:
+    container_name: frontend
+    build: frontend
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.frontend.entrypoints=web
+      - traefik.http.routers.frontend.rule=Host(`localhost`)
+    networks:
+      - bridge
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  proxy:
+    container_name: proxy
+    image: traefik:v2.8
+    command:
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+      - "8080:8080"
+    networks:
+      - bridge
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+
+
+networks:
+  bridge:
+    driver: bridge
+
+volumes:
+  files:
+    name: fileforest-files
