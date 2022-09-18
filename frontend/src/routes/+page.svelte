@@ -4,7 +4,7 @@
   let branchName: string;
 
   function createBranch(): void {
-    request(`/api/branches/?name=${encodeURIComponent(branchName)}`, { method: 'POST' },
+    request(`/api/branches/?id=${encodeURIComponent(branchName)}`, { method: 'POST' },
       () => {
         alert(`Branch ${branchName} successfully created`)
       }, json => {

@@ -1,7 +1,7 @@
 from pathlib import Path
 from shutil import rmtree
 
-from fastapi import APIRouter, Response, HTTPException
+from fastapi import APIRouter, Query, Response, HTTPException
 
 router = APIRouter(prefix='/branches')
 files = Path('files')
@@ -13,7 +13,7 @@ def list_branches():
 
 
 @router.post('/', status_code=201)
-def create_branch(branch_id: str):
+def create_branch(branch_id: str = Query(default=None, alias='id')):
     branch = files / branch_id
     if branch.is_dir():
         raise HTTPException(409, 'The specified branch ID already exists')
@@ -23,7 +23,7 @@ def create_branch(branch_id: str):
 
 
 @router.get('/{branch_id}')
-def read_branch(branch_id: str):
+def read_branch(branch_id: str = Query(default=None, alias='id')):
     branch = files / branch_id
     if not branch.is_dir():
         raise HTTPException(404, 'The specified branch ID does not exist')
@@ -32,7 +32,7 @@ def read_branch(branch_id: str):
 
 
 @router.put('/{branch_id}', status_code=204)
-def update_branch(branch_id: str, new_id: str):
+def update_branch(new_id: str, branch_id: str = Query(default=None, alias='id')):
     branch = files / branch_id
     if not branch.is_dir():
         raise HTTPException(404, 'The specified branch ID does not exist')
@@ -42,7 +42,7 @@ def update_branch(branch_id: str, new_id: str):
 
 
 @router.delete('/{id}')
-def delete_branch(branch_id: str):
+def delete_branch(branch_id: str = Query(default=None, alias='id')):
     branch = files / branch_id
     if not branch.is_dir():
         raise HTTPException(404, 'The specified branch ID does not exist')
