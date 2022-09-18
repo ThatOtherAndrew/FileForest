@@ -16,12 +16,16 @@ export function request(
       onSuccess(json)
     })
     .catch((response: Response) => {
-      response.json()
-        .then((json: APIError) => {
-          onError(json)
-        })
-        .catch(() => {
-          onError({ detail: response.statusText })
-        })
+      try {
+        response.json()
+          .then((json: APIError) => {
+            onError(json)
+          })
+          .catch(() => {
+            onError({ detail: response.statusText })
+          })
+      } catch {
+        console.error(response)
+      }
     })
 }
