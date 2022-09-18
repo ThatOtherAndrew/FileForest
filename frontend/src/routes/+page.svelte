@@ -1,4 +1,5 @@
 <script lang="ts">
+  import BranchesWidget from "../components/BranchesWidget.svelte";
   import { request } from "../lib/requests";
 
   let branchName: string;
@@ -22,6 +23,8 @@
            maxlength="64" title="Branch name can only contain alphanumeric characters, underscores and hyphens.">
     <input type="submit" value="Create new branch">
   </form>
+
+  <BranchesWidget/>
 </main>
 
 
