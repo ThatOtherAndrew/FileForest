@@ -2,6 +2,7 @@
   import BranchesWidget from "../components/BranchesWidget.svelte";
   import { fetch_json } from "../lib/requests";
 
+  let branches: BranchesWidget;
   let branchName: string;
 
   function createBranch(): void {
@@ -12,6 +13,8 @@
         alert(`An error occurred: ${json.detail}`);
       }
     );
+    document.forms[0].reset();
+    branches.update();
   }
 </script>
 
@@ -24,7 +27,7 @@
     <input type="submit" value="Create new branch">
   </form>
 
-  <BranchesWidget/>
+  <BranchesWidget bind:this={branches}/>
 </main>
 
 

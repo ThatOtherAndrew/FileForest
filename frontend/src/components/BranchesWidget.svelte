@@ -2,30 +2,53 @@
   import { browser } from '$app/environment';
   import { fetch_json } from "../lib/requests";
 
-  let branches: string[] = ['Loading...'];
+  let branches: string[];
+
+  export function update() {
+    fetch_json('/api/branches/', { method: 'GET' }, response => {
+      branches = response as string[];
+    });
+  }
 
   if (browser) {
-    fetch_json('/api/branches/', { method: 'GET' }, response => {
-      branches = response.length ? response as string[] : ['No branches'];
-    });
+    update();
   }
 </script>
 
 
 <main>
-  {#each branches as branch}
-    <div>{branch}</div>
-  {/each}
+  {#if branches === undefined}
+    <h3>Loading...</h3>
+  {:else if branches.length}
+    <div id="grid-container">
+      {#each branches as branch}
+        <div id="grid-item">{branch}</div>
+      {/each}
+    </div>
+  {:else}
+    <h3>No items</h3>
+  {/if}
 </main>
 
 
 <style lang="scss">
   main {
-    display: grid;
-    grid-gap: 20px;
+    margin: 30px 0;
+  }
 
-    div {
-      border: 1px solid red;
-    }
+  #grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  #grid-item {
+    margin: 5px;
+    padding: 3px;
+    background-color: #353535;
+    border-radius: 5px;
+  }
+
+  h3 {
+    text-align: center;
   }
 </style>
