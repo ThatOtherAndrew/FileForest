@@ -2,7 +2,7 @@ interface APIError {
   detail: unknown
 }
 
-export function request(
+export function fetch_json(
   input: RequestInfo,
   init: RequestInit,
   onSuccess: (json: unknown) => void,

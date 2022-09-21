@@ -1,11 +1,11 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { request } from "../lib/requests";
+  import { fetch_json } from "../lib/requests";
 
   let branches: string[] = ['Loading...'];
 
   if (browser) {
-    request('/api/branches/', { method: 'GET' }, response => {
+    fetch_json('/api/branches/', { method: 'GET' }, response => {
       branches = response.length ? response as string[] : ['No branches'];
     });
   }
@@ -19,9 +19,13 @@
 </main>
 
 
-<style>
+<style lang="scss">
   main {
     display: grid;
     grid-gap: 20px;
+
+    div {
+      border: 1px solid red;
+    }
   }
 </style>

@@ -1,11 +1,11 @@
 <script lang="ts">
   import BranchesWidget from "../components/BranchesWidget.svelte";
-  import { request } from "../lib/requests";
+  import { fetch_json } from "../lib/requests";
 
   let branchName: string;
 
   function createBranch(): void {
-    request(`/api/branches/?id=${encodeURIComponent(branchName)}`, { method: 'POST' },
+    fetch_json(`/api/branches/?id=${encodeURIComponent(branchName)}`, { method: 'POST' },
       () => {
         alert(`Branch ${branchName} successfully created`);
       }, json => {
