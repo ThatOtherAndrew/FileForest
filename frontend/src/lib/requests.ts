@@ -10,22 +10,22 @@ export function request(
 ) {
   fetch(input, init)
     .then((response: Response) => {
-      return response.ok ? response.json() : Promise.reject(response)
+      return response.ok ? response.json() : Promise.reject(response);
     })
     .then((json: unknown) => {
-      onSuccess(json)
+      onSuccess(json);
     })
     .catch((response: Response) => {
       try {
         response.json()
           .then((json: APIError) => {
-            onError(json)
+            onError(json);
           })
           .catch(() => {
-            onError({ detail: response.statusText })
-          })
+            onError({ detail: response.statusText });
+          });
       } catch {
-        console.error(response)
+        console.error(response);
       }
-    })
+    });
 }

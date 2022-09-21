@@ -7,11 +7,11 @@
   function createBranch(): void {
     request(`/api/branches/?id=${encodeURIComponent(branchName)}`, { method: 'POST' },
       () => {
-        alert(`Branch ${branchName} successfully created`)
+        alert(`Branch ${branchName} successfully created`);
       }, json => {
-        alert(`An error occurred: ${json.detail}`)
+        alert(`An error occurred: ${json.detail}`);
       }
-    )
+    );
   }
 </script>
 
