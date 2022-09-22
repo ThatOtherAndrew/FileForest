@@ -1,6 +1,6 @@
 <script lang="ts">
-  import BranchesWidget from "../components/BranchesWidget.svelte";
-  import { fetch_json } from "../lib/requests";
+  import BranchesWidget from '../components/BranchesWidget.svelte';
+  import { fetch_json } from '../lib/requests';
 
   let branches: BranchesWidget;
   let branchName: string;

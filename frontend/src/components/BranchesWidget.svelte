@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { fetch_json } from "../lib/requests";
+  import { fetch_json } from '../lib/requests';
 
   let branches: string[];
 
