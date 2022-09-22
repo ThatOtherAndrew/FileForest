@@ -1,29 +1,28 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { fetch_json } from '../lib/requests';
+  import { page } from '$app/stores';
+  import { fetch_json } from '$lib/requests.js';
 
-  let branches: string[];
-
-  export function update() {
-    fetch_json('/api/branches/', { method: 'GET' }, response => {
-      branches = response as string[];
-    });
-  }
+  let contents: string[];
 
   if (browser) {
-    update();
+    fetch_json(`/api/branches/${$page.params.branch}`, { method: 'GET' }, response => {
+        contents = response as string[];
+        console.debug(response);
+      }
+    );
   }
 </script>
 
 
 <main>
-  {#if branches === undefined}
+  {#if contents === undefined}
     <h3>Loading...</h3>
-  {:else if branches.length}
+  {:else if contents.length}
     <div id="grid-container">
-      {#each branches as branch}
-        <a href="/{branch}">
-          <div id="grid-item">{branch}</div>
+      {#each contents as file}
+        <a href="/{$page.params.branch}/{file}">
+          <div id="grid-item">{file}</div>
         </a>
       {/each}
     </div>
