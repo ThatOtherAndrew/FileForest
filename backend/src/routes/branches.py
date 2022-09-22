@@ -9,7 +9,7 @@ files = Path('files')
 
 @router.get('/')
 def list_branches():
-    return files.iterdir()
+    return [branch.name for branch in files.iterdir()]
 
 
 @router.post('/', status_code=201)
@@ -28,7 +28,7 @@ def read_branch(branch_id: str = Query(default=None, alias='id')):
     if not branch.is_dir():
         raise HTTPException(404, 'The specified branch ID does not exist')
 
-    return branch.iterdir()
+    return [item.name for item in branch.iterdir()]
 
 
 @router.patch('/{branch_id}', status_code=204)
