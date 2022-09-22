@@ -31,7 +31,7 @@ def read_branch(branch_id: str = Query(default=None, alias='id')):
     return branch.iterdir()
 
 
-@router.put('/{branch_id}', status_code=204)
+@router.patch('/{branch_id}', status_code=204)
 def update_branch(new_id: str, branch_id: str = Query(default=None, alias='id')):
     branch = files / branch_id
     if not branch.is_dir():
