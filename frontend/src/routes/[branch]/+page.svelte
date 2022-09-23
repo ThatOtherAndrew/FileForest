@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { browser } from '$app/environment';
+  // import { browser } from '$app/environment';
   import { page } from '$app/stores';
-  import { fetch_json } from '$lib/requests.js';
+  import { request } from '$lib/requests.js';
 
   let contents: string[];
 
-  if (browser) {
-    fetch_json(`/api/branches/${$page.params.branch}`, { method: 'GET' }, response => {
-        contents = response as string[];
-        console.debug(response);
-      }
-    );
-  }
+  // if (browser) {
+  request(`/api/branches/${$page.params.branch}`, { method: 'GET' }, response => {
+      contents = response as string[];
+      console.debug(response);
+    }
+  );
+  // }
 </script>
 
 

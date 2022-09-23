@@ -1,31 +1,37 @@
 interface APIError {
-  detail: unknown
+  detail: unknown;
 }
 
-export function fetch_json(
+export function request(
   input: RequestInfo,
   init: RequestInit,
-  onSuccess: (json: unknown) => void,
-  onError: (json: APIError) => void = console.error
+  onSuccess?: (json?: unknown) => void,
+  onError?: (detail: unknown) => void
 ) {
+  const errorCallback: (json?: unknown) => void = onError ? onError : console.error;
+
   fetch(input, init)
-    .then((response: Response) => {
-      return response.ok ? response.json() : Promise.reject(response);
-    })
-    .then((json: unknown) => {
-      onSuccess(json);
-    })
-    .catch((response: Response) => {
+    .then(async (response: Response) => {
+      const text = await response.text();
+      let json: unknown;
       try {
-        response.json()
-          .then((json: APIError) => {
-            onError(json);
-          })
-          .catch(() => {
-            onError({ detail: response.statusText });
-          });
+        json = JSON.parse(text);
       } catch {
-        console.error(response);
+        if (response.ok && !text) {
+          if (onSuccess) {
+            onSuccess();
+          }
+        } else {
+          errorCallback('Invalid JSON response');
+        }
+        return;
+      }
+      if (response.ok) {
+        if (onSuccess) {
+          onSuccess(json);
+        }
+      } else {
+        errorCallback((json as APIError).detail);
       }
     });
 }

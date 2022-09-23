@@ -1,11 +1,11 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { fetch_json } from '../lib/requests';
+  import { request } from '../lib/requests';
 
   let branches: string[];
 
   export function update() {
-    fetch_json('/api/branches/', { method: 'GET' }, response => {
+    request('/api/branches/', { method: 'GET' }, response => {
       branches = response as string[];
     });
   }
