@@ -15,6 +15,12 @@
 
 
 <main>
+  <form action="/api/branches/{$page.params.branch}/upload" enctype="multipart/form-data" method="post">
+    <label for="file-picker">Select a file: </label>
+    <input name="file" id="file-picker" type="file">
+    <input type="submit" value="Upload">
+  </form>
+
   {#if contents === undefined}
     <h3>Loading...</h3>
   {:else if contents.length}

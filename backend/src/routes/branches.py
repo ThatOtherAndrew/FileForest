@@ -1,7 +1,8 @@
 from pathlib import Path
 from shutil import rmtree
 
-from fastapi import APIRouter, Query, Response, HTTPException
+import aiofiles
+from fastapi import APIRouter, Query, Response, UploadFile, HTTPException
 
 router = APIRouter(prefix='/branches')
 files = Path('files')
@@ -48,4 +49,13 @@ def delete_branch(branch_id: str = Query(default=None, alias='id')):
         raise HTTPException(404, 'The specified branch ID does not exist')
 
     rmtree(branch)
+    return Response()
+
+
+@router.post('/{branch_id}/upload')
+async def upload_file(file: UploadFile, branch_id: str = Query(default=None, alias='id')):
+    async with aiofiles.open(files / branch_id / file.filename, 'wb') as out_file:
+        while chunk := await file.read(4096):
+            await out_file.write(chunk)
+
     return Response()
