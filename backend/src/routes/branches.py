@@ -41,7 +41,7 @@ def update_branch(new_id: str, branch_id: str = Query(default=None, alias='id'))
     return Response()
 
 
-@router.delete('/{id}')
+@router.delete('/{branch_id}')
 def delete_branch(branch_id: str = Query(default=None, alias='id')):
     branch = files / branch_id
     if not branch.is_dir():
