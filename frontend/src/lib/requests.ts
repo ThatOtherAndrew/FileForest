@@ -8,7 +8,7 @@ export function request(
   onSuccess?: (json?: unknown) => void,
   onError?: (detail: unknown) => void
 ) {
-  const errorCallback: (json?: unknown) => void = onError ? onError : console.error;
+  const errorCallback: (json?: unknown) => void = onError !== undefined ? onError : console.error;
 
   fetch(input, init)
     .then(async (response: Response) => {
@@ -17,7 +17,7 @@ export function request(
       try {
         json = JSON.parse(text);
       } catch {
-        if (response.ok && !text) {
+        if (response.ok && text === '') {
           if (onSuccess) {
             onSuccess();
           }
@@ -27,7 +27,7 @@ export function request(
         return;
       }
       if (response.ok) {
-        if (onSuccess) {
+        if (onSuccess !== undefined) {
           onSuccess(json);
         }
       } else {
