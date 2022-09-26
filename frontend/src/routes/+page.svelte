@@ -6,7 +6,7 @@
   let branchName: string;
 
   function createBranch(): void {
-    request(`/api/branches/?id=${encodeURIComponent(branchName)}`, { method: 'POST' }, null, alert);
+    request(`/api/branches/?id=${encodeURIComponent(branchName)}`, { method: 'POST' }, undefined, alert);
     document.forms[0].reset();
     branches.update();
   }
