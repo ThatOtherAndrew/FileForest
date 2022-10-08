@@ -59,3 +59,12 @@ async def upload_file(file: UploadFile, branch_id: str = Query(default=None, ali
             await out_file.write(chunk)
 
     return Response()
+
+
+@router.get('/{branch_id}/{file}')
+async def read_file(file: str, branch_id: str = Query(default=None, alias='id')):
+    try:
+        async with aiofiles.open(files / branch_id / file, 'r') as file:
+            return {'text': await file.read()}
+    except UnicodeDecodeError:
+        return {'text': '<BINARY>'}
