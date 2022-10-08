@@ -1,16 +1,9 @@
+<!--suppress TypeScriptCheckImport-->
 <script lang="ts">
-  import { browser } from '$app/environment';
   import { page } from '$app/stores';
-  import { request } from '$lib/requests.js';
+  import type { PageData } from './$types';
 
-  let contents: string[];
-
-  if (browser) {
-    request(`/api/branches/${$page.params.branch}`, { method: 'GET' }, response => {
-        contents = response as string[];
-      }
-    );
-  }
+  export let data: PageData;
 </script>
 
 
@@ -21,11 +14,11 @@
     <input type="submit" value="Upload">
   </form>
 
-  {#if contents === undefined}
+  {#if data.files === undefined}
     <h3>Loading...</h3>
-  {:else if contents.length}
+  {:else if data.files.length}
     <div id="grid-container">
-      {#each contents as file}
+      {#each data.files as file}
         <a href="/{$page.params.branch}/{file}">
           <div id="grid-item">{file}</div>
         </a>
