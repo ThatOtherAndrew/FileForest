@@ -1,5 +1,3 @@
-// noinspection JSUnusedGlobalSymbols
-
 import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
@@ -14,4 +12,5 @@ const config = {
   }
 };
 
+// noinspection JSUnusedGlobalSymbols
 export default config;
